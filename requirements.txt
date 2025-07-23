@@ -3,8 +3,3 @@ psycopg2-binary==2.9.9
 python-dotenv==1.0.0
 Flask-Login==0.6.3
 Werkzeug==2.3.7
-scikit-learn==1.0.2
-numpy==1.21.6
-setuptools==60.0.0  # Versión más antigua y estable para Python 3.9/3.10
-wheel==0.36.2       # Versión más antigua y estable
-Cython==0.29.28     # Versión más antigua y estable
