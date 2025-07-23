@@ -1,0 +1,14 @@
+# render.yaml
+services:
+  - type: web
+    name: animeverse-navigator
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT src.app:app
+    envVars:
+      # Render soporta esta variable para forzar la version de Python
+      - key: PYTHON_VERSION
+        value: 3.9.18 # Versión muy estable y compatible con psycopg2
+    # No incluyas DATABASE_URL ni SECRET_KEY aquí. Ya las configuraste
+    # en la interfaz de Render en la pestaña "Environment".
+    # Si las pones aquí, sobrescribirás las de la interfaz.
