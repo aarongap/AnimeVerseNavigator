@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Recomendaciones - AnimeVerse Navigator{% endblock %}
+
+{% block content %}
+<section class="recommendations-section">
+    <h1>Animes Recomendados para Ti</h1>
+    {% if recommendations %}
+        <ul class="anime-grid">
+            {% for anime in recommendations %}
+            <li class="anime-card">
+                <h2><a href="{{ url_for('anime.anime_detail', anime_id=anime.id) }}">{{ anime.titulo }}</a></h2>
+                <p>Recomendación IA (Puntuación: {{ "%.2f"|format(anime.score) }})</p>
+                <p>¡Descubre algo nuevo basado en tus gustos!</p>
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Lo sentimos, no pudimos generar recomendaciones en este momento. Asegúrate de haber calificado algunos animes.</p>
+        <p>Mientras tanto, puedes <a href="{{ url_for('anime.list_animes') }}">explorar todos los animes</a>.</p>
+    {% endif %}
+</section>
+{% endblock %}

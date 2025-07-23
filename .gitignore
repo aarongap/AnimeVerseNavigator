@@ -1,0 +1,16 @@
+# Ignorar archivos específicos de Python
+__pycache__/
+*.pyc
+.env
+
+# Ignorar carpetas de entornos virtuales
+venv/
+env/
+
+# Ignorar archivos de IDE (Cursor, VS Code)
+.vscode/
+.cursor/
+
+# Archivos de base de datos local (si se generan)
+*.sqlite3
+*.db

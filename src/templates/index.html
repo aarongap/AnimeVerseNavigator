@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio - AnimeVerse Navigator{% endblock %}
+
+{% block content %}
+<section class="auth-forms">
+    <div class="form-container">
+        <h2>Iniciar Sesión</h2>
+        <form action="{{ url_for('auth.login') }}" method="POST">
+            <div class="form-group">
+                <label for="username_login">Usuario:</label>
+                <input type="text" id="username_login" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password_login">Contraseña:</label>
+                <input type="password" id="password_login" name="password" required>
+            </div>
+            <button type="submit">Iniciar Sesión</button>
+        </form>
+    </div>
+
+    <div class="form-container">
+        <h2>Registrarse</h2>
+        <form action="{{ url_for('auth.register') }}" method="POST">
+            <div class="form-group">
+                <label for="username_reg">Usuario:</label>
+                <input type="text" id="username_reg" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="email_reg">Email:</label>
+                <input type="email" id="email_reg" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password_reg">Contraseña:</label>
+                <input type="password" id="password_reg" name="password" required>
+            </div>
+            <button type="submit">Registrarse</button>
+        </form>
+    </div>
+</section>
+{% endblock %}

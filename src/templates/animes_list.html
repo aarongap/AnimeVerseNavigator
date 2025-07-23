@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Todos los Animes - AnimeVerse Navigator{% endblock %}
+
+{% block content %}
+<section class="anime-list-section">
+    <h1>Todos los Animes</h1>
+    <ul class="anime-grid">
+        {% for anime in animes %}
+        <li class="anime-card">
+            <h2><a href="{{ url_for('anime.anime_detail', anime_id=anime.id) }}">{{ anime.titulo }}</a></h2>
+            <p>Año: {{ anime.anio_lanzamiento }}</p>
+            <p>Estudio: {{ anime.estudio_productor }}</p>
+            <p>Calificación: {{ "%.2f"|format(anime.promedio_calificacion) if anime.promedio_calificacion is not none else 'N/A' }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock %}

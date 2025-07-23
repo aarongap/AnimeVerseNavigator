@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Añadir Nuevo Anime (Admin) - AnimeVerse Navigator{% endblock %}
+
+{% block content %}
+<section class="admin-form-section">
+    <h1>Añadir Nuevo Anime</h1>
+    <form action="{{ url_for('anime.admin_add_anime') }}" method="POST">
+        <div class="form-group">
+            <label for="titulo">Título:</label>
+            <input type="text" id="titulo" name="titulo" required>
+        </div>
+        <div class="form-group">
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" name="descripcion" rows="5"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="anio">Año de Lanzamiento:</label>
+            <input type="number" id="anio" name="anio" min="1900" max="2099">
+        </div>
+        <div class="form-group">
+            <label for="estudio">Estudio Productor:</label>
+            <input type="text" id="estudio" name="estudio">
+        </div>
+        <div class="form-group">
+            <label for="generos">Géneros (separados por coma, ej: Accion,Fantasia):</label>
+            <input type="text" id="generos" name="generos">
+        </div>
+        <button type="submit">Añadir Anime</button>
+    </form>
+</section>
+{% endblock %}

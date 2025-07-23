@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - AnimeVerse Navigator{% endblock %}
+
+{% block content %}
+<section class="dashboard">
+    <h1>Bienvenido, {{ current_user.username }}!</h1>
+
+    <div class="section-card">
+        <h2>Tu Lista de Animes</h2>
+        {% if user_animes %}
+            <ul class="anime-list-dashboard">
+                {% for anime in user_animes %}
+                    <li>
+                        <a href="{{ url_for('anime.anime_detail', anime_id=anime[0]) }}">{{ anime[1] }}</a>
+                        - Estado: <strong>{{ anime[2] }}</strong>
+                        {% if anime[3] %} (Episodio: {{ anime[3] }}){% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Aún no has añadido animes a tu lista. Explora la <a href="{{ url_for('anime.list_animes') }}">lista completa de animes</a> para empezar!</p>
+        {% endif %}
+    </div>
+
+    <div class="section-card">
+        <h2>Acciones Rápidas</h2>
+        <ul class="quick-actions">
+            <li><a href="{{ url_for('anime.list_animes') }}">Explorar Animes</a></li>
+            <li><a href="{{ url_for('anime.show_recommendations') }}">Ver Recomendaciones</a></li>
+            <li><a href="{{ url_for('anime.admin_add_anime') }}">Administrar Animes (Admin Demo)</a></li>
+        </ul>
+    </div>
+</section>
+{% endblock %}

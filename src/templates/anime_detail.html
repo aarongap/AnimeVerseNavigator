@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}{{ anime.titulo }} - AnimeVerse Navigator{% endblock %}
+
+{% block content %}
+<section class="anime-detail">
+    <h1>{{ anime.titulo }}</h1>
+    <p><strong>Año de Lanzamiento:</strong> {{ anime.anio_lanzamiento }}</p>
+    <p><strong>Estudio:</strong> {{ anime.estudio_productor }}</p>
+    <p><strong>Descripción:</strong> {{ anime.descripcion }}</p>
+    <p><strong>Calificación Promedio:</strong> {{ "%.2f"|format(anime.promedio_calificacion) if anime.promedio_calificacion is not none else 'N/A' }}</p>
+
+    <div class="action-card">
+        <h2>Tu Estado de Visualización</h2>
+        {% if user_list_status %}
+            <p>Estado actual: <strong>{{ user_list_status[0] }}</strong></p>
+            {% if user_list_status[1] %}
+                <p>Episodio actual: {{ user_list_status[1] }}</p>
+            {% endif %}
+            <form action="{{ url_for('anime.update_list_status', anime_id=anime.id) }}" method="POST">
+                <div class="form-group">
+                    <label for="estado">Actualizar Estado:</label>
+                    <select name="estado" id="estado">
+                        <option value="Pendiente" {% if user_list_status[0] == 'Pendiente' %}selected{% endif %}>Pendiente</option>
+                        <option value="Viendo" {% if user_list_status[0] == 'Viendo' %}selected{% endif %}>Viendo</option>
+                        <option value="Completado" {% if user_list_status[0] == 'Completado' %}selected{% endif %}>Completado</option>
+                        <option value="Abandonado" {% if user_list_status[0] == 'Abandonado' %}selected{% endif %}>Abandonado</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="episodio">Episodio Actual:</label>
+                    <input type="number" id="episodio" name="episodio" value="{{ user_list_status[1] if user_list_status[1] is not none else 0 }}" min="0">
+                </div>
+                <button type="submit">Actualizar Estado</button>
+            </form>
+        {% else %}
+            <p>Este anime no está en tu lista.</p>
+            <form action="{{ url_for('anime.update_list_status', anime_id=anime.id) }}" method="POST">
+                <input type="hidden" name="estado" value="Pendiente">
+                <button type="submit">Añadir a mi lista (Pendiente)</button>
+            </form>
+        {% endif %}
+    </div>
+
+    <div class="action-card">
+        <h2>Calificar y Reseñar</h2>
+        <form action="{{ url_for('anime.add_review', anime_id=anime.id) }}" method="POST">
+            <div class="form-group">
+                <label for="calificacion">Calificación (1-10):</label>
+                <input type="number" id="calificacion" name="calificacion" min="1" max="10" required value="{{ reviews[0][1] if reviews and reviews[0][2] == current_user.username else '' }}">
+            </div>
+            <div class="form-group">
+                <label for="resena">Tu Reseña:</label>
+                <textarea id="resena" name="resena" rows="5" required>{{ reviews[0][0] if reviews and reviews[0][2] == current_user.username else '' }}</textarea>
+            </div>
+            <button type="submit">Guardar Reseña</button>
+        </form>
+    </div>
+
+    <div class="reviews-section">
+        <h2>Reseñas de Usuarios</h2>
+        {% if reviews %}
+            <ul class="review-list">
+                {% for resena_text, calificacion, username, fecha in reviews %}
+                    <li class="review-item">
+                        <p><strong>{{ username }}</strong> ({{ fecha.strftime('%Y-%m-%d') }}) - Calificación: {{ calificacion }}/10</p>
+                        <p>{{ resena_text }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No hay reseñas para este anime aún. ¡Sé el primero!</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
