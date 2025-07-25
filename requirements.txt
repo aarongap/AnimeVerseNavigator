@@ -4,3 +4,5 @@ python-dotenv==1.0.0
 Flask-Login==0.6.3
 Werkzeug==2.3.7
 gunicorn
+scikit-learn==1.0.2
+numpy==1.21.6
