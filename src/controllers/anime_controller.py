@@ -143,10 +143,9 @@ def update_list_status(anime_id):
 @anime_bp.route('/recommendations')
 @login_required
 def show_recommendations():
-    recommendations = recommender.get_recommendations(current_user.id)
-    # Puedes buscar los detalles completos de los animes recomendados si es necesario
-    # Por ahora, solo pasamos los IDs y títulos del AI Service
-    return render_template('recommendations.html', recommendations=recommendations) # Crea este template
+    # recommendations = recommender.get_recommendations(current_user.id) # COMENTA ESTA LÍNEA
+    flash("La funcionalidad de recomendaciones de IA está temporalmente deshabilitada debido a problemas de compatibilidad en el despliegue. Disculpe las molestias.", 'error')
+    return render_template('recommendations.html', recommendations=[]) # Devolver una lista vacía
 
 # Para demostrar el procedimiento de SQL directamente
 @anime_bp.route('/admin/add_new_anime', methods=['GET', 'POST'])
